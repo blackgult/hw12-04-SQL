@@ -1,0 +1,19 @@
+SELECT c.store_id, s2.first_name, s2.last_name, c2.city, COUNT(c.store_id)
+FROM customer c
+JOIN store s1 ON s1.store_id = c.store_id 
+JOIN staff s2 ON s1.manager_staff_id = s2.staff_id 
+JOIN address a ON s1.address_id = a.address_id 
+JOIN city c2 ON c2.city_id = a.city_id 
+GROUP BY store_id
+HAVING COUNT(c.store_id) > 300;  
+
+
+SELECT COUNT(*)
+FROM film
+WHERE length > (SELECT AVG(length) FROM film);
+
+SELECT DATE_FORMAT(payment_date, '%Y-%M') AS payment_month, SUM(amount) AS total_amount, COUNT(rental_id) AS rental_count
+FROM payment
+GROUP BY payment_month
+ORDER BY total_amount DESC
+LIMIT 1;
